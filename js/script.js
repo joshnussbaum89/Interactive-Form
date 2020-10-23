@@ -18,11 +18,12 @@ designSelectMenu[0].textContent = 'Please select a T-shirt theme';
 const shirtColorDiv = document.querySelector('.shirt-colors');
 shirtColorDiv.setAttribute('hidden', true);
 
-// Listener for user t-shirt design selection, change t-shirt color options accordingly
-designSelectMenu.addEventListener('change', (e) => {
+// Listen for user t-shirt design selection, change t-shirt color options accordingly
+// Listen for activities
+document.querySelector('form').addEventListener('change', (e) => {
+      const eventTargetValue = e.target.value;
       const shirtColorSelect = document.querySelector('#color');
       const shirtColorOption = document.querySelectorAll('#color option');
-      const eventTargetValue = e.target.value;
 
       for (let i = 0; i < shirtColorOption.length; i++) {
             shirtColorDiv.removeAttribute('hidden');

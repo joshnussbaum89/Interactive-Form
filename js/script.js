@@ -5,22 +5,24 @@
 // Name input is focused on page load
 const nameInput = document.querySelector('#name');
 nameInput.focus();
-
 // Hide "other" job title text area on page load
 const otherTitle = document.getElementById('other-title');
 otherTitle.setAttribute('hidden', true);
-
 // T-shirt design <select> menu
 const designSelectMenu = document.querySelector('#design');
 designSelectMenu[0].textContent = 'Please select a T-shirt theme';
-
 // Hide shirt colors <div> on page load
 const shirtColorDiv = document.querySelector('.shirt-colors');
 shirtColorDiv.setAttribute('hidden', true);
+// Activities section - create element to hold total cost of activities
+const activities = document.querySelector('.activities');
+const activityCostSpan = document.createElement('h2');
+activities.appendChild(activityCostSpan);
+let totalActivityCost = 0;
+// activityCostSpan.innerText = "Total cost:";
 
-// Listen for user t-shirt design selection, change t-shirt color options accordingly
-// Listen for activities
-document.querySelector('form').addEventListener('change', (e) => {
+// Listener for user t-shirt design selection, change t-shirt color options accordingly
+designSelectMenu.addEventListener('change', (e) => {
       const eventTargetValue = e.target.value;
       const shirtColorSelect = document.querySelector('#color');
       const shirtColorOption = document.querySelectorAll('#color option');
@@ -42,4 +44,16 @@ document.querySelector('form').addEventListener('change', (e) => {
                         <option value="placeholder"> - - </option>`;
             }
       }
+});
+
+// Activites event listener
+activities.addEventListener('change', (e) => {
+      const clicked = e.target;
+      const dataCost = clicked.getAttribute('data-cost');
+      if (clicked.checked) {
+            totalActivityCost += +dataCost;
+      } else {
+            totalActivityCost -= +dataCost;
+      }
+      activityCostSpan.innerText = `Total cost: $${totalActivityCost}`;
 });

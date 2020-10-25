@@ -1,25 +1,28 @@
-/* ---------------------- */
-// Javascript //
-/* ---------------------- */
+/* ================================= 
+      JavaScript
+==================================== */
 
 // Name input is focused on page load
 const nameInput = document.querySelector('#name');
 nameInput.focus();
+
 // Hide "other" job title text area on page load
 const otherTitle = document.getElementById('other-title');
 otherTitle.setAttribute('hidden', true);
+
 // T-shirt design <select> menu
 const designSelectMenu = document.querySelector('#design');
 designSelectMenu[0].textContent = 'Please select a T-shirt theme';
+
 // Hide shirt colors <div> on page load
 const shirtColorDiv = document.querySelector('.shirt-colors');
 shirtColorDiv.setAttribute('hidden', true);
+
 // Activities section - create element to hold total cost of activities
 const activities = document.querySelector('.activities');
-const activityCostSpan = document.createElement('h2');
+const activityCostSpan = document.createElement('h3');
 activities.appendChild(activityCostSpan);
 let totalActivityCost = 0;
-// activityCostSpan.innerText = "Total cost:";
 
 // Listener for user t-shirt design selection, change t-shirt color options accordingly
 designSelectMenu.addEventListener('change', (e) => {
@@ -46,14 +49,33 @@ designSelectMenu.addEventListener('change', (e) => {
       }
 });
 
-// Activites event listener
+// Listener activity selection
+// Calculate cost of total activities
+// Disable conflicting activities based on schedule
 activities.addEventListener('change', (e) => {
       const clicked = e.target;
       const dataCost = clicked.getAttribute('data-cost');
+      const dayAndTime = clicked.getAttribute('data-day-and-time');
+      const checkboxes = document.querySelectorAll('input[type=checkbox]');
+
       if (clicked.checked) {
             totalActivityCost += +dataCost;
       } else {
             totalActivityCost -= +dataCost;
       }
-      activityCostSpan.innerText = `Total cost: $${totalActivityCost}`;
+      if (totalActivityCost === 0) {
+            activityCostSpan.innerText = `Please select activies 💻`;
+      } else {
+            activityCostSpan.innerText = `Total: $${totalActivityCost}`;
+      }
+
+      for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].getAttribute('data-day-and-time') === dayAndTime && clicked !== checkboxes[i]) {
+                  if (clicked.checked) {
+                        checkboxes[i].setAttribute('disabled', true);
+                  } else {
+                        checkboxes[i].removeAttribute('disabled');
+                  }
+            }
+      }
 });

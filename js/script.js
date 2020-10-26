@@ -1,6 +1,7 @@
 /* ================================= 
-      JavaScript
+            Global variables
 ==================================== */
+
 
 // Name input is focused on page load
 const nameInput = document.querySelector('#name');
@@ -23,6 +24,24 @@ const activities = document.querySelector('.activities');
 const activityCostSpan = document.createElement('h3');
 activities.appendChild(activityCostSpan);
 let totalActivityCost = 0;
+
+// Payment section - disable "Select Payment Method" so it doesn't appear when menu opens
+const payment = document.querySelector('#payment');
+payment.firstElementChild.setAttribute('hidden', true);
+
+// Hide paypal <div> on page load
+const paypalDiv = document.querySelector('.paypal');
+paypalDiv.setAttribute('hidden', true);
+
+// Hide bitcoin <div> on page load
+const bitcoinDiv = document.querySelector('.bitcoin');
+bitcoinDiv.setAttribute('hidden', true);
+
+
+/* ================================= 
+            Event Listeners
+==================================== */
+
 
 // Listener for user t-shirt design selection, change t-shirt color options accordingly
 designSelectMenu.addEventListener('change', (e) => {
@@ -49,7 +68,7 @@ designSelectMenu.addEventListener('change', (e) => {
       }
 });
 
-// Listener activity selection
+// Listen for activity selection
 // Calculate cost of total activities
 // Disable conflicting activities based on schedule
 activities.addEventListener('change', (e) => {
@@ -64,7 +83,7 @@ activities.addEventListener('change', (e) => {
             totalActivityCost -= +dataCost;
       }
       if (totalActivityCost === 0) {
-            activityCostSpan.innerText = `Please select activies 💻`;
+            activityCostSpan.innerText = 'Which activies would you like to attend? 💻';
       } else {
             activityCostSpan.innerText = `Total: $${totalActivityCost}`;
       }
@@ -78,4 +97,25 @@ activities.addEventListener('change', (e) => {
                   }
             }
       }
+});
+
+// Listen for payment selection
+payment.addEventListener('change', (e) => {
+      const clickedValue = e.target.value;
+      const creditCardDiv = document.querySelector('.credit-card');
+
+      if (clickedValue === "credit card") {
+            creditCardDiv.removeAttribute('hidden');
+            paypalDiv.setAttribute('hidden', true);
+            bitcoinDiv.setAttribute('hidden', true);
+      } else if (clickedValue === "paypal") {
+            paypalDiv.removeAttribute('hidden');
+            creditCardDiv.setAttribute('hidden', true);
+            bitcoinDiv.setAttribute('hidden', true);
+      } else if (clickedValue === "bitcoin") {
+            bitcoinDiv.removeAttribute('hidden');
+            creditCardDiv.setAttribute('hidden', true);
+            paypalDiv.setAttribute('hidden', true);
+      }
+
 });

@@ -3,6 +3,9 @@
 ==================================== */
 
 
+const form = document.querySelector('form');
+const email = document.querySelector('#mail');
+
 // Name input is focused on page load
 const nameInput = document.querySelector('#name');
 nameInput.focus();
@@ -120,34 +123,70 @@ payment.addEventListener('change', (e) => {
 
 });
 
+
 /* =================================
          Validation Functions
 ==================================== */
 
-function name() {
 
+function nameValidator() {
+      if (nameInput.value.length > 0) {
+            nameInput.style.borderColor = "green";
+            return true;
+      } else {
+            nameInput.style.borderColor = "red";
+            return false;
+      }
 }
 
-function email() {
+function emailValidator() {
+      const emailValue = email.value;
+      const indexOfAtSign = emailValue.indexOf('@');
+      const indexOfPeriod = emailValue.lastIndexOf('.');
 
+      if (indexOfAtSign > 1 && indexOfPeriod > indexOfAtSign && indexOfPeriod > 1) {
+            email.style.borderColor = "green";
+            return true;
+      } else {
+            email.style.borderColor = "red";
+            return false;
+      }
 }
 
-function activity() {
+function activityValidator() {
+      const checkboxes = document.querySelectorAll('input[type=checkbox]');
+      const activitiesTitle = activities.firstElementChild;
 
+      for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                  activitiesTitle.style.color = "inherit";
+                  return true;
+            }
+      }
+
+      activitiesTitle.style.color = "red";
+      return false;
 }
 
-function creditCard() {
+function creditCardValidator() {
       // only validated if the payment method is “credit card”)
 }
 
-function zipCode() {
+function zipCodeValidator() {
       // only validated if the payment method is “credit card”)
 }
 
-function CVV() {
+function cvvValidator() {
       // only validated if the payment method is “credit card”)
 }
 
 function validateForm() {
       // Call all other validation functions
+      nameValidator();
+      emailValidator();
+      activityValidator();
 }
+
+form.addEventListener('click', () => {
+      validateForm();
+})

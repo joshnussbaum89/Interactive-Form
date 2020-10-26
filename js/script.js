@@ -119,3 +119,35 @@ payment.addEventListener('change', (e) => {
       }
 
 });
+
+/* =================================
+         Validation Functions
+==================================== */
+
+function name() {
+
+}
+
+function email() {
+
+}
+
+function activity() {
+
+}
+
+function creditCard() {
+      // only validated if the payment method is “credit card”)
+}
+
+function zipCode() {
+      // only validated if the payment method is “credit card”)
+}
+
+function CVV() {
+      // only validated if the payment method is “credit card”)
+}
+
+function validateForm() {
+      // Call all other validation functions
+}

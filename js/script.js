@@ -4,10 +4,11 @@
 
 
 const form = document.querySelector('form');
-const email = document.querySelector('#mail');
+const submit = document.querySelector('button[type="submit"]');
 
 // Name input is focused on page load
 const nameInput = document.querySelector('#name');
+const email = document.querySelector('#mail');
 nameInput.focus();
 
 // Hide "other" job title text area on page load
@@ -33,6 +34,10 @@ let totalActivityCost = 0;
 // Payment section - disable "Select Payment Method" so it doesn't appear when menu opens
 const payment = document.querySelector('#payment');
 payment.firstElementChild.setAttribute('hidden', true);
+
+// Hide credit card <div> until user selects "Credit Card" payment method
+const creditCardDiv = document.querySelector('#credit-card');
+creditCardDiv.setAttribute('hidden', true);
 
 // Hide paypal <div> on page load
 const paypalDiv = document.querySelector('.paypal');
@@ -118,6 +123,8 @@ payment.addEventListener('change', (e) => {
       const creditCardDiv = document.querySelector('.credit-card');
 
       if (clickedValue === "credit card") {
+            // validation
+            // creditCardValidator(clickedValue);
             creditCardDiv.removeAttribute('hidden');
             paypalDiv.setAttribute('hidden', true);
             bitcoinDiv.setAttribute('hidden', true);
@@ -180,6 +187,21 @@ function activityValidator() {
 
 function creditCardValidator() {
       // only validated if the payment method is “credit card”)
+      const ccNum = document.querySelector('#cc-num');
+      const ccNumLabel = ccNum.previousElementSibling;
+      const ccNumValue = ccNum.value;
+      const ccNumLength = ccNumValue.length;
+
+      if (!isNaN(ccNumValue) && ccNumLength >= 13 && ccNumLength <= 16) {
+            ccNum.style.border = "2px solid green";
+            ccNumLabel.style.color = "green";
+            return true;
+      } else {
+            ccNum.style.border = "2px solid red";
+            ccNumLabel.style.color = "red";
+            return false;
+      }
+
 }
 
 function zipCodeValidator() {
@@ -195,6 +217,9 @@ function validateForm() {
       nameValidator();
       emailValidator();
       activityValidator();
+      creditCardValidator();
+      zipCodeValidator();
+      cvvValidator();
 }
 
 form.addEventListener('click', () => {

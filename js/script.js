@@ -11,16 +11,18 @@ const nameInput = document.querySelector('#name');
 nameInput.focus();
 
 // Hide "other" job title text area on page load
+const jobSelect = document.querySelector('#title');
 const otherTitle = document.getElementById('other-title');
 otherTitle.setAttribute('hidden', true);
 
 // T-shirt design <select> menu
 const designSelectMenu = document.querySelector('#design');
-designSelectMenu[0].textContent = 'Please select a T-shirt theme';
+designSelectMenu[0].setAttribute('hidden', true);
 
 // Hide shirt colors <div> on page load
 const shirtColorDiv = document.querySelector('.shirt-colors');
-shirtColorDiv.setAttribute('hidden', true);
+const shirtColorSelect = document.querySelector('#color');
+shirtColorSelect.innerHTML = "<option value='placeholder'>Please select a T-shirt theme</option>";
 
 // Activities section - create element to hold total cost of activities
 const activities = document.querySelector('.activities');
@@ -46,10 +48,18 @@ bitcoinDiv.setAttribute('hidden', true);
 ==================================== */
 
 
+// If user selects 'other' in job select menu, show text field to enter other job role
+jobSelect.addEventListener('change', e => {
+      if (e.target.value === 'other') {
+            otherTitle.removeAttribute('hidden');
+      } else {
+            otherTitle.setAttribute('hidden', true);
+      }
+});
+
 // Listener for user t-shirt design selection, change t-shirt color options accordingly
 designSelectMenu.addEventListener('change', (e) => {
       const eventTargetValue = e.target.value;
-      const shirtColorSelect = document.querySelector('#color');
       const shirtColorOption = document.querySelectorAll('#color option');
 
       for (let i = 0; i < shirtColorOption.length; i++) {

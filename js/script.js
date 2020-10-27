@@ -123,8 +123,6 @@ payment.addEventListener('change', (e) => {
       const creditCardDiv = document.querySelector('.credit-card');
 
       if (clickedValue === "credit card") {
-            // validation
-            // creditCardValidator(clickedValue);
             creditCardDiv.removeAttribute('hidden');
             paypalDiv.setAttribute('hidden', true);
             bitcoinDiv.setAttribute('hidden', true);

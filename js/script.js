@@ -193,21 +193,54 @@ function creditCardValidator() {
       if (!isNaN(ccNumValue) && ccNumLength >= 13 && ccNumLength <= 16) {
             ccNum.style.border = "2px solid green";
             ccNumLabel.style.color = "green";
+            removeError(ccNum);
             return true;
       } else {
             ccNum.style.border = "2px solid red";
             ccNumLabel.style.color = "red";
+            printError('please enter valid credit card', ccNumLabel);
             return false;
       }
-
 }
 
 function zipCodeValidator() {
       // only validated if the payment method is “credit card”)
+      const zipCode = document.querySelector('#zip');
+      const zipCodeLabel = zipCode.previousElementSibling;
+      const zipCodeValue = zipCode.value;
+      const zipCodeLength = zipCodeValue.length;
+
+      if (!isNaN(zipCodeValue) && zipCodeLength === 5) {
+            zipCode.style.border = "2px solid green";
+            zipCodeLabel.style.color = "green";
+            removeError(zipCode);
+            return true;
+      } else {
+            zipCode.style.border = "2px solid red";
+            zipCodeLabel.style.color = "red";
+            printError('please enter valid zip code', zipCodeLabel);
+            return false;
+      }
 }
 
 function cvvValidator() {
       // only validated if the payment method is “credit card”)
+      const cvvCode = document.querySelector('#cvv');
+      const cvvCodeLabel = cvvCode.previousElementSibling;
+      const cvvCodeValue = cvvCode.value;
+      const cvvCodeLength = cvvCodeValue.length;
+
+      if (!isNaN(cvvCodeValue) && cvvCodeLength === 3) {
+            cvvCode.style.border = "2px solid green";
+            cvvCodeLabel.style.color = "green";
+            removeError(cvvCode);
+            return true;
+      } else {
+            cvvCode.style.border = "2px solid red";
+            cvvCodeLabel.style.color = "red";
+            printError('please enter valid CVV', cvvCodeLabel);
+            return false;
+      }
 }
 
 function validateForm() {
@@ -220,6 +253,23 @@ function validateForm() {
       cvvValidator();
 }
 
-form.addEventListener('click', () => {
+// Display error
+function printError(text, labelElement) {
+      const container = labelElement.parentElement;
+      const span = document.createElement('span');
+      span.style.color = "red";
+      container.appendChild(span);
+      return span.innerText = text;
+}
+
+// Remove error
+function removeError(input) {
+      return input.nextElementSibling.style.display = "none";
+}
+
+// Submit form
+form.addEventListener('submit', (e) => {
       validateForm();
+      e.preventDefault();
+      console.log('validator prevented submission');
 })

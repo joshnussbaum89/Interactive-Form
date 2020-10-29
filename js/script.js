@@ -23,7 +23,7 @@ designSelectMenu[0].setAttribute('hidden', true);
 // Hide shirt colors <div> on page load
 const shirtColorDiv = document.querySelector('.shirt-colors');
 const shirtColorSelect = document.querySelector('#color');
-shirtColorSelect.innerHTML = "<option value='placeholder'>Please select a T-shirt theme</option>";
+shirtColorDiv.setAttribute('hidden', true);
 
 // Activities section - create element to hold total cost of activities
 const activities = document.querySelector('.activities');
@@ -37,7 +37,6 @@ payment.firstElementChild.setAttribute('hidden', true);
 
 // Hide credit card <div> until user selects "Credit Card" payment method
 const creditCardDiv = document.querySelector('#credit-card');
-creditCardDiv.setAttribute('hidden', true);
 
 // Hide paypal <div> on page load
 const paypalDiv = document.querySelector('.paypal');
@@ -52,6 +51,13 @@ bitcoinDiv.setAttribute('hidden', true);
             Event Listeners
 ==================================== */
 
+// nameInput.addEventListener('keyup', () => {
+//       nameValidator();
+// })
+
+email.addEventListener('keyup', () => {
+      emailValidator();
+})
 
 // If user selects 'other' in job select menu, show text field to enter other job role
 jobSelect.addEventListener('change', e => {
@@ -71,11 +77,13 @@ designSelectMenu.addEventListener('change', (e) => {
             shirtColorDiv.removeAttribute('hidden');
             if (eventTargetValue === 'js puns') {
                   shirtColorSelect.innerHTML = `
+                        <option hidden>Please select a T-shirt theme</option>
                         <option value="cornflowerblue">Cornflower Blue (JS Puns shirt only)</option>
                         <option value="darkslategrey">Dark Slate Grey (JS Puns shirt only)</option>
                         <option value="gold">Gold (JS Puns shirt only)</option>`;
             } else if (eventTargetValue === 'heart js') {
                   shirtColorSelect.innerHTML = `
+                        <option hidden>Please select a T-shirt theme</option>
                         <option value="tomato">Tomato (I &#9829; JS shirt only)</option>
                         <option value="steelblue">Steel Blue (I &#9829; JS shirt only)</option>
                         <option value="dimgrey">Dim Grey (I &#9829; JS shirt only)</option>`;
@@ -193,12 +201,12 @@ function creditCardValidator() {
       if (!isNaN(ccNumValue) && ccNumLength >= 13 && ccNumLength <= 16) {
             ccNum.style.border = "2px solid green";
             ccNumLabel.style.color = "green";
-            removeError(ccNum);
+            // removeError(ccNum);
             return true;
       } else {
             ccNum.style.border = "2px solid red";
             ccNumLabel.style.color = "red";
-            printError('please enter valid credit card', ccNumLabel);
+            // printError('please enter valid credit card', ccNumLabel);
             return false;
       }
 }
@@ -213,12 +221,12 @@ function zipCodeValidator() {
       if (!isNaN(zipCodeValue) && zipCodeLength === 5) {
             zipCode.style.border = "2px solid green";
             zipCodeLabel.style.color = "green";
-            removeError(zipCode);
+            // removeError(zipCode);
             return true;
       } else {
             zipCode.style.border = "2px solid red";
             zipCodeLabel.style.color = "red";
-            printError('please enter valid zip code', zipCodeLabel);
+            // printError('please enter valid zip code', zipCodeLabel);
             return false;
       }
 }
@@ -233,12 +241,12 @@ function cvvValidator() {
       if (!isNaN(cvvCodeValue) && cvvCodeLength === 3) {
             cvvCode.style.border = "2px solid green";
             cvvCodeLabel.style.color = "green";
-            removeError(cvvCode);
+            // removeError(cvvCode);
             return true;
       } else {
             cvvCode.style.border = "2px solid red";
             cvvCodeLabel.style.color = "red";
-            printError('please enter valid CVV', cvvCodeLabel);
+            // printError('please enter valid CVV', cvvCodeLabel);
             return false;
       }
 }
@@ -264,12 +272,17 @@ function printError(text, labelElement) {
 
 // Remove error
 function removeError(input) {
-      return input.nextElementSibling.style.display = "none";
+      const span = input.nextElementSibling;
+      return span.style.display = "none";
 }
 
 // Submit form
 form.addEventListener('submit', (e) => {
-      validateForm();
-      e.preventDefault();
-      console.log('validator prevented submission');
+      if (!validateForm()) {
+            e.preventDefault();
+            form.insertAdjacentHTML('afterbegin', '<h3 style="color: red;">*** Please fill out required fields ***</h3>');
+            console.log('validator prevented submission');
+      } else {
+            validateForm();
+      }
 })

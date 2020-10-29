@@ -281,7 +281,7 @@ form.addEventListener('submit', (e) => {
       //       e.preventDefault();
       //       console.log('validator prevented submission');
       // }
-      validateForm();
+
 });
 
 

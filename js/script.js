@@ -51,10 +51,6 @@ bitcoinDiv.setAttribute('hidden', true);
             Event Listeners
 ==================================== */
 
-// nameInput.addEventListener('keyup', () => {
-//       nameValidator();
-// })
-
 email.addEventListener('keyup', () => {
       emailValidator();
 })
@@ -201,12 +197,10 @@ function creditCardValidator() {
       if (!isNaN(ccNumValue) && ccNumLength >= 13 && ccNumLength <= 16) {
             ccNum.style.border = "2px solid green";
             ccNumLabel.style.color = "green";
-            // removeError(ccNum);
             return true;
       } else {
             ccNum.style.border = "2px solid red";
             ccNumLabel.style.color = "red";
-            // printError('please enter valid credit card', ccNumLabel);
             return false;
       }
 }
@@ -221,12 +215,10 @@ function zipCodeValidator() {
       if (!isNaN(zipCodeValue) && zipCodeLength === 5) {
             zipCode.style.border = "2px solid green";
             zipCodeLabel.style.color = "green";
-            // removeError(zipCode);
             return true;
       } else {
             zipCode.style.border = "2px solid red";
             zipCodeLabel.style.color = "red";
-            // printError('please enter valid zip code', zipCodeLabel);
             return false;
       }
 }
@@ -241,12 +233,10 @@ function cvvValidator() {
       if (!isNaN(cvvCodeValue) && cvvCodeLength === 3) {
             cvvCode.style.border = "2px solid green";
             cvvCodeLabel.style.color = "green";
-            // removeError(cvvCode);
             return true;
       } else {
             cvvCode.style.border = "2px solid red";
             cvvCodeLabel.style.color = "red";
-            // printError('please enter valid CVV', cvvCodeLabel);
             return false;
       }
 }
@@ -256,9 +246,11 @@ function validateForm() {
       nameValidator();
       emailValidator();
       activityValidator();
-      creditCardValidator();
-      zipCodeValidator();
-      cvvValidator();
+      if (creditCardDiv.getAttribute('hidden') === null) {
+            creditCardValidator();
+            zipCodeValidator();
+            cvvValidator();
+      }
 }
 
 // Display error
@@ -278,11 +270,18 @@ function removeError(input) {
 
 // Submit form
 form.addEventListener('submit', (e) => {
-      if (!validateForm()) {
+      const h3Error = document.querySelector('.error');
+
+      if (!validateForm() && h3Error === null) {
             e.preventDefault();
-            form.insertAdjacentHTML('afterbegin', '<h3 style="color: red;">*** Please fill out required fields ***</h3>');
+            form.insertAdjacentHTML('afterbegin', '<h3 class="error" style="color: red;">*** Please fill out required fields ***</h3>');
             console.log('validator prevented submission');
-      } else {
-            validateForm();
-      }
-})
+      } 
+      // else if (h3Error !== null) {
+      //       e.preventDefault();
+      //       console.log('validator prevented submission');
+      // }
+      validateForm();
+});
+
+

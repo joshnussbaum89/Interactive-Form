@@ -243,13 +243,12 @@ function cvvValidator() {
 
 function validateForm() {
       // Call all other validation functions
-      nameValidator();
-      emailValidator();
-      activityValidator();
-      if (creditCardDiv.getAttribute('hidden') === null) {
-            creditCardValidator();
-            zipCodeValidator();
-            cvvValidator();
+      if (creditCardDiv) {
+            const validateAll = nameValidator() && emailValidator() && activityValidator() && creditCardValidator() && zipCodeValidator() && cvvValidator();
+            return validateAll;
+      } else {
+            const validateAllMinusCC = nameValidator() && emailValidator() && activityValidator();
+            return validateAllMinusCC;
       }
 }
 
@@ -271,17 +270,12 @@ function removeError(input) {
 // Submit form
 form.addEventListener('submit', (e) => {
       const h3Error = document.querySelector('.error');
-
-      if (!validateForm() && h3Error === null) {
+      if (h3Error) {
+            h3Error.setAttribute('hidden', true);
+      }
+      if (!validateForm()) {
             e.preventDefault();
             form.insertAdjacentHTML('afterbegin', '<h3 class="error" style="color: red;">*** Please fill out required fields ***</h3>');
             console.log('validator prevented submission');
-      } 
-      // else if (h3Error !== null) {
-      //       e.preventDefault();
-      //       console.log('validator prevented submission');
-      // }
-
+      }
 });
-
-

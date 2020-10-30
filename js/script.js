@@ -2,7 +2,6 @@
             Global variables
 ==================================== */
 
-
 const form = document.querySelector('form');
 const submit = document.querySelector('button[type="submit"]');
 
@@ -53,7 +52,7 @@ bitcoinDiv.setAttribute('hidden', true);
 
 email.addEventListener('keyup', () => {
       emailValidator();
-})
+});
 
 // If user selects 'other' in job select menu, show text field to enter other job role
 jobSelect.addEventListener('change', e => {
@@ -158,6 +157,7 @@ function nameValidator() {
       }
 }
 
+// Change error based on user input
 function emailValidator() {
       const emailValue = email.value;
       const indexOfAtSign = emailValue.indexOf('@');
@@ -165,9 +165,19 @@ function emailValidator() {
 
       if (indexOfAtSign > 1 && indexOfPeriod > indexOfAtSign && indexOfPeriod > 1) {
             email.style.borderColor = "green";
+            email.previousElementSibling.innerText = "Email:";
             return true;
+      } else if (indexOfAtSign > indexOfPeriod) {
+            email.style.borderColor = "red";
+            email.previousElementSibling.innerText = "Email must include '@' and '.'";
+            return false;
+      } else if (indexOfPeriod === 0) {
+            email.style.borderColor = "red";
+            email.previousElementSibling.innerText = "Email doesn't start with '.'";
+            return false;
       } else {
             email.style.borderColor = "red";
+            email.previousElementSibling.innerText = "Please enter valid Email";
             return false;
       }
 }
@@ -243,11 +253,13 @@ function cvvValidator() {
 
 function validateForm() {
       // Call all other validation functions
-      if (creditCardDiv) {
-            const validateAll = nameValidator() && emailValidator() && activityValidator() && creditCardValidator() && zipCodeValidator() && cvvValidator();
+      const creditDivAttribute = creditCardDiv.getAttribute('hidden');
+
+      if (!creditDivAttribute) {
+            const validateAll = [nameValidator(), emailValidator(), activityValidator(), creditCardValidator(), zipCodeValidator(), cvvValidator()];
             return validateAll;
-      } else {
-            const validateAllMinusCC = nameValidator() && emailValidator() && activityValidator();
+      } else if (creditDivAttribute) {
+            const validateAllMinusCC = [nameValidator(), emailValidator(), activityValidator()];
             return validateAllMinusCC;
       }
 }
@@ -270,12 +282,25 @@ function removeError(input) {
 // Submit form
 form.addEventListener('submit', (e) => {
       const h3Error = document.querySelector('.error');
+
       if (h3Error) {
             h3Error.setAttribute('hidden', true);
       }
-      if (!validateForm()) {
-            e.preventDefault();
-            form.insertAdjacentHTML('afterbegin', '<h3 class="error" style="color: red;">*** Please fill out required fields ***</h3>');
-            console.log('validator prevented submission');
+
+      for (let i = 0; i < validateForm().length; i++) {
+            if (!validateForm()[i]) {
+                  e.preventDefault();
+                  validateForm();
+                  form.insertAdjacentHTML('afterbegin', '<h3 class="error" style="color: red;">*** Please fill out required fields ***</h3>');
+                  console.log('validator prevented submission');
+                  break;
+            }
+            else {
+                  e.preventDefault();
+                  validateForm();
+                  form.insertAdjacentHTML('afterbegin', '<h3 style="color: green;">*** Form successfully submitted! ***</h3>');
+                  break;
+            }
       }
+
 });

@@ -2,6 +2,7 @@
             Event Listeners
 ==================================== */
 
+// Listen for email <input> errors and display in real time
 email.addEventListener('keyup', () => {
     emailValidator();
 });
@@ -98,7 +99,7 @@ payment.addEventListener('change', (e) => {
        Validation Functions
 ==================================== */
 
-
+// Validate name <input>
 function nameValidator() {
     if (nameInput.value.length > 0) {
         nameInput.style.borderColor = "green";
@@ -109,6 +110,7 @@ function nameValidator() {
     }
 }
 
+// Validate email <input>
 // Change error based on user input
 function emailValidator() {
     const emailValue = email.value;
@@ -134,6 +136,7 @@ function emailValidator() {
     }
 }
 
+// Validate activity selection
 function activityValidator() {
     const checkboxes = document.querySelectorAll('input[type=checkbox]');
     const activitiesTitle = activities.firstElementChild;
@@ -149,6 +152,7 @@ function activityValidator() {
     return false;
 }
 
+// Validate credit card number
 function creditCardValidator() {
     // only validated if the payment method is “credit card”)
     const ccNum = document.querySelector('#cc-num');
@@ -165,6 +169,7 @@ function creditCardValidator() {
     }
 }
 
+// Validate zip code
 function zipCodeValidator() {
     // only validated if the payment method is “credit card”)
     const zipCode = document.querySelector('#zip');
@@ -181,6 +186,7 @@ function zipCodeValidator() {
     }
 }
 
+// Validate CVV 
 function cvvValidator() {
     // only validated if the payment method is “credit card”)
     const cvvCode = document.querySelector('#cvv');
@@ -197,10 +203,12 @@ function cvvValidator() {
     }
 }
 
+// Call all other validation functions
 function validateForm() {
-    // Call all other validation functions
+
     const creditDivAttribute = creditCardDiv.getAttribute('hidden');
 
+    // store returned value of each validation function
     if (!creditDivAttribute) {
         const validateAll = [nameValidator(), emailValidator(), activityValidator(), creditCardValidator(), zipCodeValidator(), cvvValidator()];
         return validateAll;
@@ -225,19 +233,20 @@ form.addEventListener('submit', (e) => {
     }
 
     for (let i = 0; i < validateForm().length; i++) {
-        if (!validateForm()[i]) {
+        if (validateForm().includes(false)) {
             e.preventDefault();
             validateForm();
             form.insertAdjacentHTML('afterbegin', '<h3 class="error" style="color: red;">*** Please fill out required fields ***</h3>');
             console.log('validator prevented submission');
             break;
         }
-        else if (validateForm()) {
+        else {
             // e.preventDefault();
             validateForm();
             form.insertAdjacentHTML('afterbegin', '<h3 style="color: green;">*** Form successfully submitted! ***</h3>');
             break;
         }
+
     }
 
 });

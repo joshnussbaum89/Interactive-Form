@@ -2,6 +2,7 @@
             Global variables
 ==================================== */
 
+// Form and submit button
 const form = document.querySelector('form');
 const submit = document.querySelector('button[type="submit"]');
 

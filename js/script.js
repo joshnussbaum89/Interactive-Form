@@ -31,11 +31,11 @@ const activityCostSpan = document.createElement('h3');
 activities.appendChild(activityCostSpan);
 let totalActivityCost = 0;
 
-// Payment section - disable "Select Payment Method" so it doesn't appear when menu opens
+// Payment section - remove "Select Payment Method" so it doesn't appear on page load
 const payment = document.querySelector('#payment');
-payment.firstElementChild.setAttribute('hidden', true);
+payment.removeChild(payment.firstElementChild);
 
-// Hide credit card <div> until user selects "Credit Card" payment method
+// Credit card <div>
 const creditCardDiv = document.querySelector('#credit-card');
 
 // Hide paypal <div> on page load

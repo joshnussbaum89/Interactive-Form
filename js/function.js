@@ -102,10 +102,10 @@ payment.addEventListener('change', (e) => {
 // Validate name <input>
 function nameValidator() {
     if (nameInput.value.length > 0) {
-        nameInput.style.borderColor = "green";
+        nameInput.style.borderColor = "#addfad";
         return true;
     } else {
-        nameInput.style.borderColor = "red";
+        nameInput.style.borderColor = "#a81c07";
         return false;
     }
 }
@@ -118,19 +118,19 @@ function emailValidator() {
     const indexOfPeriod = emailValue.lastIndexOf('.');
 
     if (indexOfAtSign > 1 && indexOfPeriod > indexOfAtSign && indexOfPeriod > 1) {
-        email.style.borderColor = "green";
+        email.style.borderColor = "#addfad";
         email.previousElementSibling.innerText = "Email:";
         return true;
     } else if (indexOfAtSign > indexOfPeriod) {
-        email.style.borderColor = "red";
+        email.style.borderColor = "#a81c07";
         email.previousElementSibling.innerText = "Email must include '@' and '.'";
         return false;
     } else if (indexOfPeriod === 0) {
-        email.style.borderColor = "red";
+        email.style.borderColor = "#a81c07";
         email.previousElementSibling.innerText = "Email doesn't start with '.'";
         return false;
     } else {
-        email.style.borderColor = "red";
+        email.style.borderColor = "#a81c07";
         email.previousElementSibling.innerText = "Please enter valid Email";
         return false;
     }
@@ -148,7 +148,7 @@ function activityValidator() {
         }
     }
 
-    activitiesTitle.style.color = "red";
+    activitiesTitle.style.color = "#a81c07";
     return false;
 }
 
@@ -161,10 +161,10 @@ function creditCardValidator() {
     const ccNumLength = ccNumValue.length;
 
     if (!isNaN(ccNumValue) && ccNumLength >= 13 && ccNumLength <= 16) {
-        changeBorderColorAndStyle(ccNum, ccNumLabel, 'green');
+        changeBorderColorAndStyle(ccNum, ccNumLabel, '#addfad');
         return true;
     } else {
-        changeBorderColorAndStyle(ccNum, ccNumLabel, 'red');
+        changeBorderColorAndStyle(ccNum, ccNumLabel, '#a81c07');
         return false;
     }
 }
@@ -178,10 +178,10 @@ function zipCodeValidator() {
     const zipCodeLength = zipCodeValue.length;
 
     if (!isNaN(zipCodeValue) && zipCodeLength === 5) {
-        changeBorderColorAndStyle(zipCode, zipCodeLabel, 'green');
+        changeBorderColorAndStyle(zipCode, zipCodeLabel, '#addfad');
         return true;
     } else {
-        changeBorderColorAndStyle(zipCode, zipCodeLabel, 'red');
+        changeBorderColorAndStyle(zipCode, zipCodeLabel, '#a81c07');
         return false;
     }
 }
@@ -195,10 +195,10 @@ function cvvValidator() {
     const cvvCodeLength = cvvCodeValue.length;
 
     if (!isNaN(cvvCodeValue) && cvvCodeLength === 3) {
-        changeBorderColorAndStyle(cvvCode, cvvCodeLabel, 'green');
+        changeBorderColorAndStyle(cvvCode, cvvCodeLabel, '#addfad');
         return true;
     } else {
-        changeBorderColorAndStyle(cvvCode, cvvCodeLabel, 'red');
+        changeBorderColorAndStyle(cvvCode, cvvCodeLabel, '#a81c07');
         return false;
     }
 }
@@ -236,7 +236,7 @@ form.addEventListener('submit', (e) => {
         if (validateForm().includes(false)) {
             e.preventDefault();
             validateForm();
-            form.insertAdjacentHTML('afterbegin', '<h3 class="error" style="color: red;">*** Please fill out required fields ***</h3>');
+            form.insertAdjacentHTML('afterbegin', '<h3 class="error" style="color: #a81c07;">*** Please fill out required fields ***</h3>');
             console.log('validator prevented submission');
             break;
         }

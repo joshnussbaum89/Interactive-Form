@@ -2,7 +2,7 @@
   		Base Element Styles
 ==================================== */
 
-@import url('https://fonts.googleapis.com/css?family=Nunito|Roboto+Mono');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap');
 
 * {
   box-sizing: border-box;
@@ -11,22 +11,26 @@
 body,
 input,
 button {
-	font-family: 'Nunito', sans-serif;
+	font-family: 'Dosis', sans-serif;
 }
 
 body {
   font: 1em/1.5;
-  color: rgba(6, 49, 68, 0.9);
-	background: #CDE0FB;
+  color: #fff;
+  background: rgba(135, 206, 250, 0.5);
 }
 
 header {
 	text-align: center;  
 }
 
+header span {
+	color: #100c08;
+}
+
 h1 {
 	font-size: 2.5em;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+	color: #100c08;
 	margin: 0;
 }
 
@@ -40,9 +44,8 @@ a {
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #9BBEEF;
-	border: 2px solid rgba(8, 63, 87, 0.6);
-	border-radius: 3px;
+	background: #100c08;
+	border: 2px solid #fff;
 }
 
 fieldset,
@@ -64,7 +67,7 @@ button {
 legend {
 	font-weight: bold;
 	padding-top: .5em;
-	border-top: 2px solid rgba(8, 63, 87, 0.6);
+	border-top: 2px solid #fff;
 	margin-bottom: 1.125em;
 }
 
@@ -75,7 +78,7 @@ legend {
 }
 
 label {
-	color: #000;
+	color: #fff;
 	display: block;
 	margin-bottom: .5em;
 }
@@ -89,15 +92,14 @@ input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #e9f6fb;
-	border: 2px solid rgb(111, 157, 220);
-	border-radius: 3px;
+	background: #fff;
+	border: 2px solid lightskyblue;
 	outline: none;
 }
 
 input:focus {
-	background: #fff;
-	border-color: #5e97b0;
+	border-radius: 3px;
+	box-shadow: inset 0 0 4px #100c08;
 	transition: border-color .4s, background-color .4s;
 }
 
@@ -109,16 +111,18 @@ input[type="radio"] {
 button {
 	color: #fff;
 	padding: .55em 1.25em;
-	background: #083f57;
+	background: #a81c07;
 	margin: 1.25em 0 .5em;
 	cursor: pointer;
-	border: 2px solid black;
+	border: 2px solid #fff;
 	border-radius: 4px;
 	transition: all 0.5s;
 }
 
 button:hover {
-	background: #6F9DDC;
+	background: #addfad;
+	border-color: #100c08;
+	color: #100c08;
 }
 
 input, 
@@ -144,7 +148,7 @@ option {
 .shirt-box {
 	width: 100%;
 	padding: 5px;
-	background: rgba(255, 255, 255, 0.1);
+	background: #171717;
 	border-radius: 4px;
 }
 
@@ -162,7 +166,7 @@ option {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 5px;
-	background: rgba(255, 255, 255, 0.1);
+	background: #171717;
 	border-radius: 4px;
 }
 
